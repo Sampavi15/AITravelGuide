@@ -71,15 +71,8 @@ with entry {
 
 def display_image(image_path: Any) {
     if (os.path.exists(image_path)) {
-        print("Attempting to display: " + image_path);
-
-        # Convert relative path to absolute path
-        let abs_path = os.path.abspath(image_path);
-        # Convert WSL path (/mnt/c/...) to Windows format (C:\\...)
-        let win_path = abs_path.replace("/", "\\\\").replace("\\\\mnt\\\\c", "C:");
-
-        # Open the image using Windows default viewer via PowerShell
-        os.system(f"powershell.exe start {win_path}");
+        let img = Image.open(image_path);
+        img.show();
     } else {
         print("[Image file '" + image_path + "' not found. Please view it manually.]");
     }
