@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.sqlite3
+*.db
+*.env
+.env
+jaseci_logs/
+jacenv/
+*.egg-info/
+.DS_Store
+jaceci-env/
+test.jac

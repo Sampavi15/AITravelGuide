@@ -70,75 +70,68 @@ with entry {
 
 
 def display_image(image_path: Any) {
-    if os.path.exists(image_path) {
-        print(f"'Attempting to display: '{image_path}");
-        img = Image.open(image_path);
-        img.show();
+    if (os.path.exists(image_path)) {
+        print("Attempting to display: " + image_path);
+
+        # Convert relative path to absolute path
+        let abs_path = os.path.abspath(image_path);
+        # Convert WSL path (/mnt/c/...) to Windows format (C:\\...)
+        let win_path = abs_path.replace("/", "\\\\").replace("\\\\mnt\\\\c", "C:");
+
+        # Open the image using Windows default viewer via PowerShell
+        os.system(f"powershell.exe start {win_path}");
+    } else {
+        print("[Image file '" + image_path + "' not found. Please view it manually.]");
     }
-        else
-        {
-        print(f""[Image file '"{image_path}"' not found. Please view it manually.]"");
-        }
-
 }
-
 
 def get_ai_response(place_name: Any, topic: Any) {
     topic = topic.lower();
-    if {
-        (place_name == 'Colombo')
-        if ('food' in topic) {
-            return 'Colombo offers a fantastic variety of Sri Lankan street foods, including kottu and hoppers.';
-        } elif (('legend' in topic) or ('history' in topic) ) {
-            return 'Colombo has a rich colonial history influenced by the Portuguese, Dutch, and British.';
-        }
-            else
-            {
-            return 'Colombo is the bustling capital city of Sri Lanka, known for its vibrant markets and colonial architecture.';
-            }
 
-    } elif {
-        (place_name == 'Sigiriya Rock')
-        if (('legend' in topic) or ('history' in topic) ) {
-            return 'Sigiriya is famous for the ancient rock fortress built by King Kasyapa and the stunning frescoes.';
-        } elif (('view' in topic) or ('travel' in topic) ) {
-            return 'Climbing Sigiriya offers breathtaking panoramic views of the surrounding jungles and countryside.';
+    if (place_name == "Colombo") {
+        if ("food" in topic) {
+            return "Colombo offers a fantastic variety of Sri Lankan street foods, including kottu and hoppers.";
+        } elif (("legend" in topic) or ("history" in topic)) {
+            return "Colombo has a rich colonial history influenced by the Portuguese, Dutch, and British.";
+        } else {
+            return "Colombo is the bustling capital city of Sri Lanka, known for its vibrant markets and colonial architecture.";
         }
-            else
-            {
-            return 'Sigiriya is an ancient rock fortress with stunning frescoes and breathtaking views.';
-            }
-
-    } elif {
-        (place_name == 'Hoppers')
-        if (('recipe' in topic) or ('how to' in topic) ) {
-            return 'Hoppers are made from fermented rice flour and coconut milk, cooked in a bowl-shaped pan until crispy on the edges.';
-        } elif (('taste' in topic) or ('flavor' in topic) ) {
-            return 'Hoppers have a unique combination of crisp edges and a soft, spongy center, often served with spicy sambol.';
+    } elif (place_name == "Sigiriya Rock") {
+        if (("legend" in topic) or ("history" in topic)) {
+            return "Sigiriya is famous for the ancient rock fortress built by King Kasyapa and the stunning frescoes.";
+        } elif (("view" in topic) or ("travel" in topic)) {
+            return "Climbing Sigiriya offers breathtaking panoramic views of the surrounding jungles and countryside.";
+        } else {
+            return "Sigiriya is an ancient rock fortress with stunning frescoes and breathtaking views.";
         }
-            else
-            {
-            return 'Hoppers are a delicious Sri Lankan pancake made from fermented rice flour and coconut milk.';
-            }
-
-    } elif {
-        (place_name == 'Traditional Saree')
-        if (('occasion' in topic) or ('when to wear' in topic) ) {
-            return 'Sri Lankan sarees are traditionally worn during festivals, weddings, and cultural ceremonies.';
-        } elif (('design' in topic) or ('color' in topic) ) {
-            return 'The sarees often feature vibrant colors and intricate patterns symbolizing cultural heritage.';
+    } elif (place_name == "Hoppers") {
+        if (("recipe" in topic) or ("how to" in topic)) {
+            return "Hoppers are made from fermented rice flour and coconut milk, cooked in a bowl-shaped pan until crispy on the edges.";
+        } elif (("taste" in topic) or ("flavor" in topic)) {
+            return "Hoppers have a unique combination of crisp edges and a soft, spongy center, often served with spicy sambol.";
+        } else {
+            return "Hoppers are a delicious Sri Lankan pancake made from fermented rice flour and coconut milk.";
         }
-            else
-            {
-            return 'The traditional Sri Lankan saree is a beautiful garment worn on special occasions, rich in color and symbolism.';
-            }
-
-    }
-        else
-        {
+    } elif (place_name == "Traditional Saree") {
+        if (("occasion" in topic) or ("when to wear" in topic)) {
+            return "Sri Lankan sarees are traditionally worn during festivals, weddings, and cultural ceremonies.";
+        } elif (("design" in topic) or ("color" in topic)) {
+            return "The sarees often feature vibrant colors and intricate patterns symbolizing cultural heritage.";
+        } else {
+            return "The traditional Sri Lankan saree is a beautiful garment worn on special occasions, rich in color and symbolism.";
+        }
+    } else {
         return "Sorry, I don't have information on that topic yet.";
-        }
-
+    }
+}
+def display_image(image_path: Any) {
+    if (os.path.exists(image_path)) {
+        print("Attempting to display: " + image_path);
+        let img = Image.open(image_path);
+        img.show();
+    } else {
+        print("[Image file '" + image_path + "' not found. Please view it manually.]");
+    }
 }
 
 
@@ -169,7 +162,8 @@ def run_quiz_for_place(place: Any) {
     }
         else
         {
-        print(f""❌ Out of attempts! Correct answer was '"{q[ 'correct' ]}"'"");
+        print("❌ Out of attempts! Correct answer was '" + q["correct"] + "'");
+
         }
       } }
     print(
