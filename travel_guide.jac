@@ -117,16 +117,6 @@ def get_ai_response(place_name: Any, topic: Any) {
         return "Sorry, I don't have information on that topic yet.";
     }
 }
-def display_image(image_path: Any) {
-    if (os.path.exists(image_path)) {
-        print("Attempting to display: " + image_path);
-        let img = Image.open(image_path);
-        img.show();
-    } else {
-        print("[Image file '" + image_path + "' not found. Please view it manually.]");
-    }
-}
-
 
 def run_quiz_for_place(place: Any) {
 
